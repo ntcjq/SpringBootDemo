@@ -75,6 +75,13 @@
             <artifactId>druid</artifactId>
             <version>1.0.18</version>
         </dependency>
+        <!-- 添加FreeMaker的依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+        
 	</dependencies>
 
 	<build>
