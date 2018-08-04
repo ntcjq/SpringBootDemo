@@ -21,7 +21,7 @@ public class UserController {
 	@Resource
 	private UserService userServie;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="select")
     public List<User> select(Long id) {//只接收url后面拼的参数
 		List<User> list = new ArrayList<>();
 		if(id == null) {
@@ -33,19 +33,19 @@ public class UserController {
         return list;
     }
 	
-	@RequestMapping(method = RequestMethod.POST)
-    public String save(User user) {//接收body中的参数
+	@RequestMapping(value="insert",method = RequestMethod.POST)
+    public String insert(User user) {//接收body中的参数
 		userServie.insert(user);
         return "INSERT";
     }
 	
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(value="update",method = RequestMethod.PUT)
     public String update(User user) {//只接收url后面拼的参数
 		userServie.update(user);
     	return "UPDATE";
     }
 	
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value="delete",method = RequestMethod.DELETE)
     public String delete(Long id) {//只接收url后面拼的参数
 		userServie.delete(id);
 		return "DELETE";

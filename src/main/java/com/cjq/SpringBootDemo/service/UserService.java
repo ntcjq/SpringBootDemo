@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cjq.SpringBootDemo.domain.User;
 import com.cjq.SpringBootDemo.mapper.UserMapperByJava;
@@ -16,7 +17,7 @@ public class UserService {
 	private boolean useXml = true;
 	
 	@Resource
-	private UserMapperByXml userMapperByXml = null;
+	private UserMapperByXml userMapperByXml;
 	
 	@Resource
 	private UserMapperByJava userMapperByJava;
@@ -36,6 +37,7 @@ public class UserService {
 		}
 		
 	}
+	@Transactional
 	public void insert(User user) {
 		if(useXml) {
 			userMapperByXml.insert(user);
@@ -43,6 +45,7 @@ public class UserService {
 			userMapperByJava.insert(user);
 		}
 	}
+	@Transactional
 	public void update(User user) {
 		if(useXml) {
 			userMapperByXml.update(user);
@@ -50,6 +53,7 @@ public class UserService {
 			userMapperByJava.update(user);
 		}
 	}
+	@Transactional
 	public void delete(Long id) {
 		if(useXml) {
 			userMapperByXml.delete(id);
