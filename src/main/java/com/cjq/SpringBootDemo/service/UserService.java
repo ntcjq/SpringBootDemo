@@ -41,6 +41,8 @@ public class UserService {
 	public void insert(User user) {
 		if(useXml) {
 			userMapperByXml.insert(user);
+			System.out.println("新增成功");
+			System.out.println(1/0);
 		}else {
 			userMapperByJava.insert(user);
 		}
