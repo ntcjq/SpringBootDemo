@@ -50,4 +50,13 @@ public class UserController {
 		userServie.delete(id);
 		return "DELETE";
     }
+	/**
+	 * 测试分布式事务
+	 * @return
+	 */
+	@RequestMapping(value="testJta")
+    public String testJta() {
+		userServie.testJta();
+        return "testJta";
+    }
 }

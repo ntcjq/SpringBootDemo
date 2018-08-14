@@ -1,13 +1,7 @@
 package com.cjq.SpringBootDemo.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 
 import com.cjq.SpringBootDemo.domain.User;
 
@@ -22,4 +16,6 @@ public interface UserMapperByXml {
 	void update(User user);
 
 	void delete(Long id);
+	//用于对分布式事务测试
+	void insertDept(Map map);
 }

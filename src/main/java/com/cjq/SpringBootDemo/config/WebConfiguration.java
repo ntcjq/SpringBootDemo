@@ -29,7 +29,8 @@ public class WebConfiguration {
     	//将自定义Filter加入过滤链
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new MyFilter());
-        registration.addUrlPatterns("/*");
+//        registration.addUrlPatterns("/*");
+        registration.addUrlPatterns("/user/*");
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("MyFilter");
         registration.setOrder(1);
