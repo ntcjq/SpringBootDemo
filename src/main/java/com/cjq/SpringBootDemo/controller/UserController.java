@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,15 +17,15 @@ import com.cjq.SpringBootDemo.service.UserService;
 public class UserController {
 
 	@Resource
-	private UserService userServie;
+	private UserService userService;
 	
 	@RequestMapping(value="select")
     public List<User> select(Long id) {//只接收url后面拼的参数
 		List<User> list = new ArrayList<>();
 		if(id == null) {
-			list = userServie.getAll();
+			list = userService.getAll();
 		}else {
-			User user = userServie.getOne(id);
+			User user = userService.getOne(id);
 			list.add(user);
 		}
         return list;
@@ -35,19 +33,25 @@ public class UserController {
 	
 	@RequestMapping(value="insert",method = RequestMethod.POST)
     public String insert(User user) {//接收body中的参数
-		userServie.insert(user);
+		userService.insert(user);
         return "INSERT";
     }
 	
 	@RequestMapping(value="update",method = RequestMethod.PUT)
     public String update(User user) {//只接收url后面拼的参数
-		userServie.update(user);
+		userService.update(user);
     	return "UPDATE";
     }
 	
 	@RequestMapping(value="delete",method = RequestMethod.DELETE)
     public String delete(Long id) {//只接收url后面拼的参数
-		userServie.delete(id);
+		userService.delete(id);
 		return "DELETE";
     }
+
+	@RequestMapping(value="tx",method = RequestMethod.POST)
+	public String tx(User user) {
+		userService.tx(user);
+		return "INSERT";
+	}
 }

@@ -1,9 +1,13 @@
 package com.cjq.SpringBootDemo.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cjq.SpringBootDemo.domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Spring Boot中FreeMaker默认存放模板的路径在src/main/resources/templates
@@ -11,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author v.cuijq
  *
  */
-@RequestMapping(value="web")
+@RequestMapping(value="test")
 @Controller
-public class WebController {
+public class TestController {
 
 	
 	@Value("${prj.title}")
@@ -28,4 +32,11 @@ public class WebController {
 		map.put("description", description);
 		return "hello";
 	}
+
+	@RequestMapping(value="json",method = RequestMethod.POST)
+	public String json(@RequestBody User user) {
+		System.out.println(user.toString());
+		return JSONObject.toJSONString(user);
+	}
+
 }

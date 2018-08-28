@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.cjq.SpringBootDemo.exception.MyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +42,6 @@ public class UserService {
 	public void insert(User user) {
 		if(useXml) {
 			userMapperByXml.insert(user);
-			System.out.println("新增成功");
-			System.out.println(1/0);
 		}else {
 			userMapperByJava.insert(user);
 		}
@@ -63,5 +62,14 @@ public class UserService {
 			userMapperByJava.delete(id);
 		}
 		
+	}
+	@Transactional
+	public void tx(User user) {
+		if(useXml) {
+			userMapperByXml.insert(user);
+			throw new MyException("新增成功，手动抛出异常,回滚");
+		}else {
+			userMapperByJava.insert(user);
+		}
 	}
 }

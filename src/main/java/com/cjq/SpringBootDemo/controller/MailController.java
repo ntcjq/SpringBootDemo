@@ -2,6 +2,8 @@ package com.cjq.SpringBootDemo.controller;
 
 import javax.annotation.Resource;
 
+import com.cjq.SpringBootDemo.domain.Result;
+import com.cjq.SpringBootDemo.util.ResultUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,9 +20,9 @@ public class MailController {
 	
 	@RequestMapping("send")
 	@ResponseBody
-	public String sendSimpleMail(String to, String subject, String content) {
+	public Result sendSimpleMail(String to, String subject, String content) {
 		mailService.sendSimpleMail(to, subject, content);
-		return "mail";
+		return ResultUtil.success();
 	}
 	
 }

@@ -1,0 +1,93 @@
+#加上项目名称
+#server.context-path=/boot
+server:
+  port: 8888
+#自定义的内容
+prj:
+  description: 分享生活和技术
+  title: springbootdemo
+girl:
+  name: GG
+  age: 18
+  cupSize: B
+
+spring:
+  profiles:
+    active: dev
+  ###FREEMARKER (FreeMarkerAutoConfiguration)
+  freemarker:
+    charset: UTF-8
+    cache: true
+    allow-request-override: false
+    expose-request-attributes: true
+    request-context-attribute: rc
+    content-type: text/html
+    expose-session-attributes: false
+    #模板加载路径,非templates目录是需要指定模板路径的，thymeleaf默认的前缀是templat
+    template-loader-path: classpath:/views/
+    #prefix：
+    suffix: .html
+    #spring.freemarker.settings.*=
+    expose-spring-macro-helpers: false
+    check-template-location: true
+#############邮件相关################
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 754119493@qq.com
+    password: xzpxffawjhwvbedf
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.99.36.32:3306/springboot?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: saopigying2018
+    ########druid start###########################
+    ########监控访问地址        http://localhost:8888/druid/login.html  ###
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    stestOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis: 5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+    ##########druid end###########
+  jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+#自定义的谁来发送邮件
+mail:
+  fromMail:
+    addr: 754119493@qq.com
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-locations: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.cjq.SpringBootDemo.domain
+#日志配置
+logging:
+  path: D:\\data\\logs
+  level:
+    com:
+      favorites: DEBUG
+    org:
+      springframework:
+        web: INFO
+      hibernate: ERROR
