@@ -67,9 +67,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 		@Override
 		public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
 				throws IOException, ServletException {
-			// TODO Auto-generated method stub
 			HttpServletRequest request = (HttpServletRequest) srequest;
-			System.out.println("this is MyFilter,url :"+request.getRequestURI());
+            if(request.getRequestURI().indexOf("/druid") != -1){
+                filterChain.doFilter(srequest, sresponse);
+                return;
+            }
+            System.out.println("this is MyFilter,url :"+request.getRequestURI());
 			filterChain.doFilter(srequest, sresponse);
 		}
 
