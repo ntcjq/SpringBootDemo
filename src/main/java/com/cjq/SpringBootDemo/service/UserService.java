@@ -4,7 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.cjq.SpringBootDemo.domain.Ehcache;
 import com.cjq.SpringBootDemo.exception.MyException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +20,14 @@ import com.cjq.SpringBootDemo.mapper.UserMapperByXml;
 public class UserService {
 
 	private boolean useXml = true;
-	
+	private final String cacheKey= "myCache";
 	@Resource
 	private UserMapperByXml userMapperByXml;
 	
 	@Resource
 	private UserMapperByJava userMapperByJava;
-	
+
+
 	public List<User> getAll(){
 		if(useXml) {
 			return userMapperByXml.getAll();
@@ -30,6 +35,7 @@ public class UserService {
 			return userMapperByJava.getAll();
 		}
 	}
+	@Cacheable(value = cacheKey,key = "#id")
 	public User getOne(Long id) {
 		if(useXml) {
 			return userMapperByXml.getOne(id);
@@ -38,22 +44,27 @@ public class UserService {
 		}
 		
 	}
+	@CachePut(value = cacheKey, key = "#user.id")
 	@Transactional
-	public void insert(User user) {
+	public User insert(User user) {
 		if(useXml) {
 			userMapperByXml.insert(user);
 		}else {
 			userMapperByJava.insert(user);
 		}
+		return user;
 	}
+	@CachePut(value = cacheKey, key = "#user.id")
 	@Transactional
-	public void update(User user) {
+	public User update(User user) {
 		if(useXml) {
 			userMapperByXml.update(user);
 		}else {
 			userMapperByJava.update(user);
 		}
+		return user;
 	}
+	@CacheEvict(value = cacheKey, key = "#id")
 	@Transactional
 	public void delete(Long id) {
 		if(useXml) {
@@ -71,5 +82,25 @@ public class UserService {
 		}else {
 			userMapperByJava.insert(user);
 		}
+	}
+
+	@Cacheable(value = cacheKey,key = "#id")
+	public long getnum(int id) {
+		return System.currentTimeMillis();
+	}
+	@CachePut(value = cacheKey,key = "#id")
+	public long setnum(int id) {
+		return System.currentTimeMillis();
+	}
+
+	@Cacheable(value = cacheKey,key = "#id")
+	public Ehcache getc(int id) {
+		Ehcache ehcache = new Ehcache(id+"",System.currentTimeMillis()+"");
+		return ehcache;
+	}
+	@CachePut(value = cacheKey,key = "#id")
+	public Ehcache setc(int id) {
+		Ehcache ehcache = new Ehcache(id+"",System.currentTimeMillis()+"");
+		return ehcache;
 	}
 }

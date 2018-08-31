@@ -22,6 +22,7 @@ public class ExceptionHandle {
             return ResultUtil.faild(myException.getCode(),myException.getMessage());
         }
         logger.error("【系统异常】{}",e.getMessage());
+        e.printStackTrace();
         return ResultUtil.faild(500,e.getMessage());
     }
 

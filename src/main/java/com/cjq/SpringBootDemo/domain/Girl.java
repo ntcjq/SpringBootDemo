@@ -1,13 +1,19 @@
 package com.cjq.SpringBootDemo.domain;
 
 
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Entity
-public class Girl {
+@Validated
+public class Girl implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue

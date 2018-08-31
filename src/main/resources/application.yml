@@ -30,12 +30,13 @@ spring:
     #spring.freemarker.settings.*=
     expose-spring-macro-helpers: false
     check-template-location: true
-#############邮件相关################
+  #############邮件相关################
   mail:
     default-encoding: UTF-8
     host: smtp.qq.com
     username: 754119493@qq.com
     password: xzpxffawjhwvbedf
+  ##默认数据库连接
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://47.99.36.32:3306/springboot?useUnicode=true&characterEncoding=utf-8
@@ -73,12 +74,13 @@ spring:
       hibernate:
         ddl-auto: update
       show-sql: true
+
 #自定义的谁来发送邮件
 mail:
   fromMail:
     addr: 754119493@qq.com
 mybatis:
-  mapper-locations: classpath:mybatis/mapper/*.xml
+  mapper-locations: classpath*:mybatis/mapper/*.xml
   config-locations: classpath:mybatis/mybatis-config.xml
   type-aliases-package: com.cjq.SpringBootDemo.domain
 #日志配置
