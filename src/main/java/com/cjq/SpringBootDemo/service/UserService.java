@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.cjq.SpringBootDemo.domain.Ehcache;
 import com.cjq.SpringBootDemo.exception.MyException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -20,7 +19,9 @@ import com.cjq.SpringBootDemo.mapper.UserMapperByXml;
 public class UserService {
 
 	private boolean useXml = true;
-	private final String cacheKey= "myCache";
+
+	private final String cacheKey= "myCache";//这个值定义在EhcacheConfig中
+
 	@Resource
 	private UserMapperByXml userMapperByXml;
 	
@@ -82,25 +83,5 @@ public class UserService {
 		}else {
 			userMapperByJava.insert(user);
 		}
-	}
-
-	@Cacheable(value = cacheKey,key = "#id")
-	public long getnum(int id) {
-		return System.currentTimeMillis();
-	}
-	@CachePut(value = cacheKey,key = "#id")
-	public long setnum(int id) {
-		return System.currentTimeMillis();
-	}
-
-	@Cacheable(value = cacheKey,key = "#id")
-	public Ehcache getc(int id) {
-		Ehcache ehcache = new Ehcache(id+"",System.currentTimeMillis()+"");
-		return ehcache;
-	}
-	@CachePut(value = cacheKey,key = "#id")
-	public Ehcache setc(int id) {
-		Ehcache ehcache = new Ehcache(id+"",System.currentTimeMillis()+"");
-		return ehcache;
 	}
 }
