@@ -17,19 +17,19 @@ public class EhcacheUtil {
     @Autowired
     private CacheManager cacheManager;
 
-    public void put(String cacheName, String key, Object value) {
+    public void put(String cacheName, Object key, Object value) {
         Cache cache = cacheManager.getCache(cacheName);
         Element element = new Element(key, value);
         cache.put(element);
     }
 
-    public Object get(String cacheName, String key) {
+    public Object get(String cacheName, Object key) {
         Cache cache = cacheManager.getCache(cacheName);
         Element element = cache.get(key);
         return element == null ? null : element.getObjectValue();
     }
 
-    public void remove(String cacheName, String key) {
+    public void remove(String cacheName, Object key) {
         Cache cache = cacheManager.getCache(cacheName);
         cache.remove(key);
     }
@@ -45,7 +45,7 @@ public class EhcacheUtil {
         if(elements!=null){
             for (Map.Entry<Object, Element> entry : elements.entrySet()) {
                 Map map = new HashMap();
-                map.put("key",entry.getValue().getObjectKey().toString());
+                map.put("key",entry.getValue().getObjectKey());
                 map.put("value",entry.getValue().getObjectValue());
                 list.add(map);
             }

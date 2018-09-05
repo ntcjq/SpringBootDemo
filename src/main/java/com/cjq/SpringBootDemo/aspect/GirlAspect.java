@@ -16,7 +16,7 @@ public class GirlAspect {
 
     private Logger logger = LoggerFactory.getLogger(GirlAspect.class);
 
-    @Pointcut(value="execution(public * com.cjq.SpringBootDemo.controller.GirlController.*(..))")
+    @Pointcut(value="execution(* com.cjq.SpringBootDemo.controller.GirlController.*(..))")
     public void log(){
     }
 
@@ -28,7 +28,7 @@ public class GirlAspect {
         logger.info("method={}",request.getMethod());
         logger.info("ip={}",request.getRemoteAddr());
         logger.info("class_method={}",joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName());
-        logger.info("agrs={}",joinPoint.getArgs());
+        logger.info("args={}",joinPoint.getArgs());
 
 
     }

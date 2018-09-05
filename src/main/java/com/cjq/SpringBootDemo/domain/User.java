@@ -76,6 +76,25 @@ public class User implements Serializable {
 				+ ", nickName=" + nickName + ", regTime=" + regTime + "]";
 	}
 
-	
+	public User extend(User user){
+		if(user != null){
+			if(user.userName != null && !"".equals(user.userName)){
+				this.userName = user.userName;
+			}
+			if(user.passWord != null && !"".equals(user.passWord)){
+				this.passWord = user.passWord;
+			}
+			if(user.email != null && !"".equals(user.email)){
+				this.email = user.email;
+			}
+			if(user.nickName != null && !"".equals(user.nickName)){
+				this.nickName = user.nickName;
+			}
+			if(user.regTime != null && !"".equals(user.regTime)){
+				this.regTime = user.regTime;
+			}
+		}
+		return this;
+	}
 
 }
