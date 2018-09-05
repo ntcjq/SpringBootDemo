@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import com.cjq.SpringBootDemo.exception.MyException;
 import com.cjq.SpringBootDemo.util.EhcacheUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -20,6 +22,8 @@ import com.cjq.SpringBootDemo.mapper.UserMapperByXml;
 @Service
 public class UserService {
 
+
+	private static final Logger mongoLogger = LoggerFactory.getLogger("MONGODB");
 	private boolean useXml = true;
 
 	private final String cacheKey= "myCache";//这个值定义在EhcacheConfig中
@@ -43,6 +47,7 @@ public class UserService {
 	}
 	@Cacheable(value = cacheKey,key = "#id")
 	public User getOne(Long id) {
+		mongoLogger.info("{\"select\":\"查询id为{}的用户信息\"}",id);
 		if(useXml) {
 			return userMapperByXml.getOne(id);
 		}else {

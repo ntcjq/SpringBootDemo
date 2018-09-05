@@ -2,6 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<!-- 打印sql   mybatis 3.2.3及向上版本 -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
 	<typeAliases>
 		<typeAlias alias="String" type="java.lang.String" />
 		<typeAlias alias="Integer" type="java.lang.Integer" />

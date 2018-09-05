@@ -83,13 +83,4 @@ mybatis:
   mapper-locations: classpath*:mybatis/mapper/*.xml
   config-locations: classpath:mybatis/mybatis-config.xml
   type-aliases-package: com.cjq.SpringBootDemo.domain
-#日志配置
-logging:
-  path: D:\\data\\logs
-  level:
-    com:
-      favorites: DEBUG
-    org:
-      springframework:
-        web: INFO
-      hibernate: ERROR
+
