@@ -3,6 +3,8 @@ package com.cjq.SpringBootDemo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +20,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @ComponentScan(basePackages = {"com.test1","com.test2"})
  * @author v.cuijq
  */
-@SpringBootApplication
+
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @ServletComponentScan //配置druid必须加的注解，如果不加，访问页面打不开，filter和servlet、listener之类的需要单独进行注册才能使用，spring boot里面提供了该注解起到注册作用
 //@EnableTransactionManagement   //启用事务  有些说可以不加 ,有些说要加(亲测不加也能实现事务管理) 等同于xml配置方式的 <tx:annotation-driven>
 @MapperScan("com.cjq.SpringBootDemo.mapper") //默认配置下mybatis的mapper的扫描

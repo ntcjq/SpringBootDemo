@@ -27,7 +27,7 @@ public class MongoDBAppender extends AppenderBase<LoggingEvent> {
             MongoDatabase db = _mongo.getDatabase(_dbName);
             _collection = db.getCollection(_dbCollectionName);
         } catch (Exception e) {
-            addStatus(new ErrorStatus("Failed to initialize MondoDB", this, e));
+            addStatus(new ErrorStatus("Failed to initialize MongoDB", this, e));
             return;
         }
         super.start();
@@ -64,7 +64,7 @@ public class MongoDBAppender extends AppenderBase<LoggingEvent> {
                 _collection.insertOne(document);
             }
         }catch (Exception e) {
-            addStatus(new ErrorStatus("日志写入到MongDB出错", this, e));
+            addStatus(new ErrorStatus("日志写入到MongoDB出错", this, e));
         }
     }
     //这里指定只有json格式的日志才能输入到mongo
