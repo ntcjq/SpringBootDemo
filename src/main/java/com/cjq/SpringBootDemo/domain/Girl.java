@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 

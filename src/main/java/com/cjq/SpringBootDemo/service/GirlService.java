@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +17,6 @@ public class GirlService {
 
     @Autowired
     private GirlRepository girlRepository;
-
 
     public List<Girl> findAll(){
         return girlRepository.findAll();
@@ -41,10 +41,39 @@ public class GirlService {
         return girlRepository.save(girl);
     }
 
+    /**
+     * 批量新增或更新
+     * @param girls
+     */
+    @Transactional
+    public void batchSave(List<Girl> girls){
+        List<Girl> tempGirls = new ArrayList<>();
+        for(Girl girl : girls){
+            tempGirls.add(girl);
+            if (tempGirls.size() == 2){
+                girlRepository.save(tempGirls);
+                tempGirls.clear();
+            }
+        }
+        if(!tempGirls.isEmpty()){
+            girlRepository.save(tempGirls);
+        }
+    }
+
+
+
     public void delete(Integer id){
         girlRepository.delete(id);
     }
 
+
+    /**
+     * 批量删除
+     * @param girls
+     */
+    public void batchDelete(List<Girl> girls){
+        girlRepository.deleteInBatch(girls);
+    }
 
 
 

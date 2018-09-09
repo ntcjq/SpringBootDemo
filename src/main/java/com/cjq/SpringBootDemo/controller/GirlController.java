@@ -7,6 +7,7 @@ import com.cjq.SpringBootDemo.service.GirlService;
 import com.cjq.SpringBootDemo.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,6 +49,16 @@ public class GirlController {
         return ResultUtil.success(girlService.save(g));
     }
 
+    @PostMapping("addGirls")
+    public Result addGirls(@Valid @RequestBody List<Girl> girls , BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return ResultUtil.faild(1,bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
+        girlService.batchSave(girls);
+        return ResultUtil.success();
+    }
+
+
     @PutMapping("updateGirl")
     public Result<Girl> updateGirl(Girl g){
         return ResultUtil.success(girlService.save(g));
@@ -58,6 +69,12 @@ public class GirlController {
         girlService.delete(id);
         return ResultUtil.success();
     }
+    @PostMapping("batchDelete")
+    public Result batchDelete(@RequestBody List<Girl> girls){
+        girlService.batchDelete(girls);
+        return ResultUtil.success();
+    }
+
 
     @PostMapping("tx")
     public Result<Girl> tx(@Valid Girl g , BindingResult bindingResult){//throws Exception{
