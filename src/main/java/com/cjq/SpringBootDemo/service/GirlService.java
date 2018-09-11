@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GirlService {
@@ -75,8 +76,12 @@ public class GirlService {
         girlRepository.deleteInBatch(girls);
     }
 
-
-
+    public Integer getGirlAmount(){
+        return girlRepository.getGirlAmount();
+    }
+    public List getGroupBy(){
+        return girlRepository.getGroupBy();
+    }
 
     /**
      * 事务测试

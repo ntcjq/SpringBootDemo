@@ -74,7 +74,15 @@ public class GirlController {
         girlService.batchDelete(girls);
         return ResultUtil.success();
     }
-
+    @RequestMapping("getGirlAmount")
+    public Result getGirlAmount(){
+        return ResultUtil.success(girlService.getGirlAmount());
+    }
+    @RequestMapping("getGroupBy")
+    public Result getGroupBy(){
+        List list = girlService.getGroupBy();
+        return ResultUtil.success(list);
+    }
 
     @PostMapping("tx")
     public Result<Girl> tx(@Valid Girl g , BindingResult bindingResult){//throws Exception{
