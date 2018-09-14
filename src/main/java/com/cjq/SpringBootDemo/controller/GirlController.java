@@ -78,12 +78,19 @@ public class GirlController {
     public Result getGirlAmount(){
         return ResultUtil.success(girlService.getGirlAmount());
     }
+
     @RequestMapping("getGroupBy")
     public Result getGroupBy(){
         List list = girlService.getGroupBy();
         return ResultUtil.success(list);
     }
 
+    /**
+     * 事务
+     * @param g
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("tx")
     public Result<Girl> tx(@Valid Girl g , BindingResult bindingResult){//throws Exception{
 
@@ -91,5 +98,15 @@ public class GirlController {
             return ResultUtil.faild(1,bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
         return ResultUtil.success(girlService.tx(g));
+    }
+
+    /**
+     * 动态sql查询
+     * @param girl
+     * @return
+     */
+    @PostMapping("complexQuery")
+    public Result complexQuery( Girl girl){
+        return ResultUtil.success(girlService.complexQueryBetter(girl));
     }
 }

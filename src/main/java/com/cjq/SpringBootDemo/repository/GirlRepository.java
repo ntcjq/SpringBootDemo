@@ -2,17 +2,18 @@ package com.cjq.SpringBootDemo.repository;
 
 import com.cjq.SpringBootDemo.domain.Girl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Map;
 
-public interface GirlRepository extends JpaRepository<Girl,Integer> {
+public interface GirlRepository extends JpaRepository<Girl,Integer> ,JpaSpecificationExecutor<Girl> {
 
     //自定义通过年龄查询
     List<Girl> findByAge(Integer age);
 
-    @Query("select count(id)   from Girl")
+    @Query("select count(id)   from Girl where age = 18 ")
     Integer getGirlAmount();
 
     /**
