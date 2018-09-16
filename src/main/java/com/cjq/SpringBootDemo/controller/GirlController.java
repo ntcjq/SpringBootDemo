@@ -6,8 +6,11 @@ import com.cjq.SpringBootDemo.domain.Result;
 import com.cjq.SpringBootDemo.service.GirlService;
 import com.cjq.SpringBootDemo.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -108,5 +111,44 @@ public class GirlController {
     @PostMapping("complexQuery")
     public Result complexQuery( Girl girl){
         return ResultUtil.success(girlService.complexQueryBetter(girl));
+    }
+
+    /**
+     * 分页查询
+     * @param girl
+     * @return
+     */
+    @PostMapping("page")
+    public Result page(Girl girl, Integer pageNum,
+                       Integer pageSize){
+        return ResultUtil.success(girlService.complexQueryBetter(girl,getPageable(pageNum,pageSize,null)));
+    }
+
+    /**
+     * 将MySQL的limit的offset、limit参数转化为Pageable的page、size,同时加入排序字段properties
+     * @param pageNum 页数数
+     * @param pageSize 一页多少条
+     * @param properties 排序字段
+     * @return
+     */
+    public static Pageable getPageable(Integer pageNum,
+                                       Integer pageSize,
+                                       String properties) {
+        if(pageNum <= 0){
+            pageNum = 0;
+        }else{
+            pageNum = pageNum - 1 ;
+        }
+        if(pageSize <= 0) {
+            pageSize = 10;
+        }
+
+        if(!StringUtils.isEmpty(properties)){
+            Sort sort = new Sort(Sort.Direction.ASC, properties);
+            return new PageRequest(pageNum, pageSize, sort);
+        }else{
+            return new PageRequest(pageNum, pageSize);
+        }
+
     }
 }

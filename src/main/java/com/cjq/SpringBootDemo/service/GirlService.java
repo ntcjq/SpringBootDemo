@@ -5,6 +5,8 @@ import com.cjq.SpringBootDemo.domain.Girl;
 import com.cjq.SpringBootDemo.exception.MyException;
 import com.cjq.SpringBootDemo.repository.GirlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -175,6 +177,15 @@ public class GirlService {
     }
 
     /**
+     * 动态sql查询（分页）
+     * @param girl
+     * @return
+     */
+    public Page<Girl> complexQueryBetter(Girl girl, Pageable pageable){
+        return girlRepository.findAll(where(girl),pageable);
+    }
+
+    /**
      * 条件查询时动态组装条件
      */
     private Specification<Girl> where(Girl girl){
@@ -195,5 +206,6 @@ public class GirlService {
             }
         };
     }
+
 
 }
