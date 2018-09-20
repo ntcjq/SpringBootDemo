@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan //配置druid必须加的注解，如果不加，访问页面打不开，filter和servlet、listener之类的需要单独进行注册才能使用，spring boot里面提供了该注解起到注册作用
 //@EnableTransactionManagement   //启用事务  有些说可以不加 ,有些说要加(亲测不加也能实现事务管理) 等同于xml配置方式的 <tx:annotation-driven>
 @MapperScan("com.cjq.SpringBootDemo.mapper") //默认配置下mybatis的mapper的扫描
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 120)//redis实现session共享  ，maxInactiveIntervalInSeconds: 设置Session失效时间，使用Redis Session之后，原Boot的server.session.timeout属性不再生效
 public class Application {
 
 	

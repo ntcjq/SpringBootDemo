@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.cjq.SpringBootDemo.exception.MyException;
-import com.cjq.SpringBootDemo.util.EhcacheUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,6 @@ public class UserService {
 	private static final Logger mongoLogger = LoggerFactory.getLogger("MONGODB");
 	private boolean useXml = true;
 
-	private final String cacheKey= "myCache";//这个值定义在EhcacheConfig中
-
-	@Autowired
-	private EhcacheUtil ehcacheUtil;
-
 	@Resource
 	private UserMapperByXml userMapperByXml;
 	
@@ -45,7 +39,6 @@ public class UserService {
 			return userMapperByJava.getAll();
 		}
 	}
-	@Cacheable(value = cacheKey,key = "#id")
 	public User getOne(Long id) {
 		mongoLogger.info("{\"select\":\"查询id为{}的用户信息\"}",id);
 		if(useXml) {
@@ -55,7 +48,6 @@ public class UserService {
 		}
 		
 	}
-	@CachePut(value = cacheKey, key = "#user.id")
 	@Transactional
 	public User insert(User user) {
 		if(useXml) {
@@ -65,22 +57,15 @@ public class UserService {
 		}
 		return user;
 	}
-	@CachePut(value = cacheKey, key = "#user.id")
 	@Transactional
 	public User update(User user) {
-		User userOld = (User) ehcacheUtil.get(cacheKey,user.getId());
-		if(userOld == null){
-			userOld = getOne(user.getId());
-		}
 		if(useXml) {
 			userMapperByXml.update(user);
-			userOld.extend(user);
 		}else {
 			userMapperByJava.update(user);
 		}
-		return userOld;
+		return user;
 	}
-	@CacheEvict(value = cacheKey, key = "#id")
 	@Transactional
 	public void delete(Long id) {
 		if(useXml) {

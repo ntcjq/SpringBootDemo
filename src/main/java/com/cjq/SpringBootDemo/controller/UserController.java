@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.cjq.SpringBootDemo.util.EhcacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +18,6 @@ import com.cjq.SpringBootDemo.service.UserService;
 @RequestMapping("user")
 public class UserController {
 
-	@Autowired
-	private EhcacheUtil ehcacheUtil;
 
 	@Resource
 	private UserService userService;
@@ -60,12 +57,5 @@ public class UserController {
 		userService.tx(user);
 		return "INSERT";
 	}
-
-	@RequestMapping(value="getCache",method = RequestMethod.GET)
-	public List<Map> getCache(){
-		return ehcacheUtil.getCacheList("myCache");
-	}
-
-
 
 }

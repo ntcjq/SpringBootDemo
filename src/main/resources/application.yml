@@ -75,6 +75,23 @@ spring:
         ddl-auto: update
       show-sql: true
 
+  redis:
+    host: 47.99.36.32
+    port: 6379
+    password: saopigying2018
+    database: 2
+    # 连接超时时间（毫秒）
+    timeout: 0
+    pool:
+      # 连接池最大连接数（使用负值表示没有限制）
+      max-active: 8
+      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+      # 连接池中的最大空闲连接
+      max-idle: 8
+      # 连接池中的最小空闲连接
+      min-idle: 0
+
 #自定义的谁来发送邮件
 mail:
   fromMail:
