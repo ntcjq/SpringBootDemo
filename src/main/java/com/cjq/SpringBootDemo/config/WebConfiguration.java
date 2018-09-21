@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.cjq.SpringBootDemo.interceptor.SecurityHandleInterceptor;
-import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,11 +39,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         addInterceptor.addPathPatterns("/**");
     }
 
-    @Bean
-    public RemoteIpFilter remoteIpFilter() {
-        return new RemoteIpFilter();
-    }
-    
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
 
