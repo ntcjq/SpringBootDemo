@@ -27,8 +27,8 @@ public class RedisConfig extends CachingConfigurerSupport {
             @Override
             public Object generate(Object target, Method method, Object... params) {
                 StringBuilder sb = new StringBuilder();
-                sb.append(target.getClass().getName());
-                sb.append(method.getName());
+                sb.append(target.getClass().getName()+":");
+                sb.append(method.getName()+":");
                 for (Object obj : params) {
                     sb.append(obj.toString());
                 }
@@ -42,7 +42,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
         RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
         //设置缓存过期时间
-        //rcm.setDefaultExpiration(60);//秒
+        rcm.setDefaultExpiration(60);//秒
         return rcm;
     }
 

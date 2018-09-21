@@ -39,6 +39,7 @@ public class UserService {
 			return userMapperByJava.getAll();
 		}
 	}
+	@Cacheable(value = "userCache",keyGenerator = "keyGenerator")
 	public User getOne(Long id) {
 		mongoLogger.info("{\"select\":\"查询id为{}的用户信息\"}",id);
 		if(useXml) {
@@ -49,6 +50,7 @@ public class UserService {
 		
 	}
 	@Transactional
+	@CachePut(value = "userCache",key = "#user.id.toString()")
 	public User insert(User user) {
 		if(useXml) {
 			userMapperByXml.insert(user);
