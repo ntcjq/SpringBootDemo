@@ -12,10 +12,13 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPoolConfig;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -30,6 +33,8 @@ public class RedisController {
 
     @Resource
     private RedisTemplate redisTemplate;
+
+
 
     @RequestMapping(value = "session")
     public Result session(HttpServletRequest request, HttpSession session){
@@ -64,6 +69,35 @@ public class RedisController {
         }
         return ResultUtil.success();
     }
+
+    /**
+     * 获取分布式锁
+     * @param lockKey
+     * @param requestId
+     * @return
+     */
+//    public boolean tryGetDistributedLock(String lockKey, String requestId){
+//       String result = jedis.set(lockKey,requestId,"NX","PX",60);
+//        if ("OK".equals(result)) {
+//            return true;
+//        }
+//        return false;
+//    }
+
+    /**
+     * 释放分布式锁
+     * @param lockKey 锁
+     * @param requestId 请求标识
+     * @return 是否释放成功
+     */
+//    public boolean releaseDistributedLock(String lockKey, String requestId) {
+//        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+//        Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));
+//        if ("1L".equals(result)) {
+//            return true;
+//        }
+//        return false;
+//    }
 
 
 }
