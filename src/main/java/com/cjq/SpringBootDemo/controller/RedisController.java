@@ -6,11 +6,14 @@ import com.cjq.SpringBootDemo.domain.Result;
 import com.cjq.SpringBootDemo.domain.User;
 import com.cjq.SpringBootDemo.repository.LinkTypeRepository;
 import com.cjq.SpringBootDemo.repository.LinkUrlRepository;
+import com.cjq.SpringBootDemo.service.RedisLockService;
 import com.cjq.SpringBootDemo.util.ResultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
@@ -18,10 +21,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -34,6 +34,9 @@ public class RedisController {
     @Resource
     private RedisTemplate redisTemplate;
 
+
+    @Autowired
+    private RedisLockService redisLockService;
 
 
     @RequestMapping(value = "session")
@@ -70,34 +73,26 @@ public class RedisController {
         return ResultUtil.success();
     }
 
-    /**
-     * 获取分布式锁
-     * @param lockKey
-     * @param requestId
-     * @return
-     */
-//    public boolean tryGetDistributedLock(String lockKey, String requestId){
-//       String result = jedis.set(lockKey,requestId,"NX","PX",60);
-//        if ("OK".equals(result)) {
-//            return true;
-//        }
-//        return false;
-//    }
 
     /**
-     * 释放分布式锁
-     * @param lockKey 锁
-     * @param requestId 请求标识
-     * @return 是否释放成功
+     * 测试分布式锁
      */
-//    public boolean releaseDistributedLock(String lockKey, String requestId) {
-//        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-//        Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));
-//        if ("1L".equals(result)) {
-//            return true;
-//        }
-//        return false;
-//    }
+    @RequestMapping("testLock")
+    @ResponseBody
+    public void testLock(){
+        String ticketId = "TESTKEY";
+        redisLockService.sellTickets(ticketId);
+    }
+
+    /**
+     * 查看测试结果
+     * @return
+     */
+    @RequestMapping("testLockResult")
+    public @ResponseBody Map<String,Integer> testLockResult(){
+        return redisLockService.currentTickets();
+    }
+
 
 
 }

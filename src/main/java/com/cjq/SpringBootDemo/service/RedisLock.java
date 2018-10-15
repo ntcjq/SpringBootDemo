@@ -14,6 +14,10 @@ import java.util.UUID;
 
 /**
  * Redis分布式锁
+ * 存在的问题：
+ *  当一个线程获取到锁之后，解锁之前，锁过期了，其他线程又获取到了锁，此时可能会出现多线程并发问题？
+ * 优化的方式：
+ * 设置一个较短的过期时间，获得锁的同时起一个线程在每次快要到超时时间时去刷新锁的超时时间。在释放锁的同时结束这个线程。如redis官方的分布式锁组件redisson,就是用的这种方案
  */
 @Component
 public class RedisLock {
@@ -24,7 +28,7 @@ public class RedisLock {
     private StringRedisTemplate stringRedisTemplate;
 
     /**
-     *
+     * 上锁
      * @param key       主键
      * @param value     = 当前时间 + 过期时间
      * @return
@@ -46,7 +50,11 @@ public class RedisLock {
         return false;
     }
 
-
+    /**
+     * 解锁
+     * @param key
+     * @param value
+     */
     public void unlock(String key,String value){
         String oldValue = stringRedisTemplate.opsForValue().get(key);
         try {
