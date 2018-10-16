@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class RedisLockService {
 
     private int allCount = 1000;
     private int sellCount = 0;
+
+    AtomicInteger atomicIntegerD = new AtomicInteger(1000);
+
+    AtomicInteger atomicIntegerI = new AtomicInteger();
 
     /**
      * 过期时间 ms
@@ -50,5 +55,24 @@ public class RedisLockService {
         map.put("allCount", allCount);
         map.put("sellCount", sellCount);
         return map;
+    }
+
+
+    public void atomicTest(){
+        atomicIntegerD.getAndDecrement();
+        atomicIntegerI.getAndIncrement();
+    }
+
+
+    public Map<String, Integer> atomics() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("atomicIntegerD", atomicIntegerD.get());
+        map.put("atomicIntegerI", atomicIntegerI.get());
+        return map;
+    }
+    public static void main(String[] args){
+        AtomicInteger atomicInteger = new AtomicInteger();
+        System.out.println(atomicInteger.getAndIncrement());
+        System.out.println(atomicInteger.get());
     }
 }

@@ -93,6 +93,22 @@ public class RedisController {
         return redisLockService.currentTickets();
     }
 
+    /**
+     * 测试原子操作
+     */
+    @RequestMapping("testAtomic")
+    @ResponseBody
+    public void testAtomic(){
+        redisLockService.atomicTest();
+    }
 
+    /**
+     * 查看测试结果
+     * @return
+     */
+    @RequestMapping("testAtomicResult")
+    public @ResponseBody Map<String,Integer> testAtomicResult(){
+        return redisLockService.atomics();
+    }
 
 }
