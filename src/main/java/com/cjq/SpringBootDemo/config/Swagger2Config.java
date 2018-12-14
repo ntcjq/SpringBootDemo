@@ -26,6 +26,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *     }
  */
 @Configuration
+/**
+ * 开启在线接口文档
+ */
 @EnableSwagger2
 public class Swagger2Config {
 

@@ -77,12 +77,12 @@ public class GirlController {
         girlService.batchDelete(girls);
         return ResultUtil.success();
     }
-    @RequestMapping("getGirlAmount")
+    @GetMapping("getGirlAmount")
     public Result getGirlAmount(){
         return ResultUtil.success(girlService.getGirlAmount());
     }
 
-    @RequestMapping("getGroupBy")
+    @GetMapping("getGroupBy")
     public Result getGroupBy(){
         List list = girlService.getGroupBy();
         return ResultUtil.success(list);
