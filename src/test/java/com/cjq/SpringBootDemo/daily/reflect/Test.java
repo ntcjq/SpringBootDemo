@@ -1,4 +1,7 @@
-package com.cjq.SpringBootDemo;
+package com.cjq.SpringBootDemo.daily.reflect;
+
+import com.cjq.SpringBootDemo.daily.Child;
+import com.cjq.SpringBootDemo.daily.Parent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

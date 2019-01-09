@@ -1,4 +1,4 @@
-package com.cjq.SpringBootDemo;
+package com.cjq.SpringBootDemo.daily;
 
 /**
  * @Author: cuijq
