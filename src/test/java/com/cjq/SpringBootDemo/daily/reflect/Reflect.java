@@ -10,7 +10,7 @@ public class Reflect {
 
     public static void main(String[] args){
         Animal animal = new Cat();
-//        Proxy proxy = new Proxy(animal);
+//        StaticProxy proxy = new StaticProxy(animal);
 //        proxy.eat();
 //        proxy.run();
 
