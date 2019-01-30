@@ -5,12 +5,15 @@ import com.cjq.SpringBootDemo.domain.Girl;
 import com.cjq.SpringBootDemo.domain.Result;
 import com.cjq.SpringBootDemo.service.GirlService;
 import com.cjq.SpringBootDemo.util.ResultUtil;
+import com.cjq.SpringBootDemo.valid.ValidList;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,6 +23,7 @@ import java.util.List;
  * RESTful风格接口
  */
 @RestController
+@Validated
 @RequestMapping(value="girl")
 public class GirlController {
 
@@ -44,16 +48,26 @@ public class GirlController {
     }
 
     @PostMapping("addGirl")
-    public Result<Girl> addGirl(@Valid Girl g , BindingResult bindingResult){
-
+    public Result<Girl> addGirl(@Valid Girl g,BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return ResultUtil.faild(1,bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
         return ResultUtil.success(girlService.save(g));
     }
 
+    /**
+     * 非JavaBean的校验 需要在Controller上加上@Validated注解，JavaBean的校验不需要加
+     * @param name
+     * @return
+     */
+    @PostMapping("validOriginal")
+    public Result validOriginal(@NotBlank String name){
+        System.out.println(name);
+        return ResultUtil.success();
+    }
+
     @PostMapping("addGirls")
-    public Result addGirls(@Valid @RequestBody List<Girl> girls , BindingResult bindingResult){
+    public Result addGirls(@Valid @RequestBody ValidList<Girl> girls , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return ResultUtil.faild(1,bindingResult.getAllErrors().get(0).getDefaultMessage());
         }

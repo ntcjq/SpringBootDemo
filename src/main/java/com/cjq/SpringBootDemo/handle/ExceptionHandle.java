@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
+@ResponseBody
 public class ExceptionHandle {
 
     private final static Logger logger = LoggerFactory.getLogger(ExceptionHandle.class);
+
+
     @ExceptionHandler
-    @ResponseBody
     public Result handle(Exception e){
         if(e instanceof MyException){
             MyException myException = (MyException)e;
