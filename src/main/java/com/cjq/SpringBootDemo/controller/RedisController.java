@@ -9,6 +9,7 @@ import com.cjq.SpringBootDemo.repository.LinkUrlRepository;
 import com.cjq.SpringBootDemo.service.RedisLockService;
 import com.cjq.SpringBootDemo.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -39,6 +40,9 @@ public class RedisController {
     private RedisLockService redisLockService;
 
 
+    @Value("${server.port}")
+    private int port;
+
     @RequestMapping(value = "session")
     public Result session(HttpServletRequest request, HttpSession session){
         UUID uid = (UUID) session.getAttribute("uid");
@@ -46,7 +50,7 @@ public class RedisController {
             uid = UUID.randomUUID();
         }
         session.setAttribute("uid", uid);
-        return ResultUtil.success("8888"+":"+session.getId());
+        return ResultUtil.success(port+":"+session.getId());
     }
 
 
