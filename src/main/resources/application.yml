@@ -78,7 +78,7 @@ spring:
   redis:
     host: 47.99.36.32
     port: 6379
-    password: saopigying2018
+   # password: saopigying2018
     database: 2
     # 连接超时时间（毫秒）
     timeout: 0
@@ -91,6 +91,12 @@ spring:
       max-idle: 8
       # 连接池中的最小空闲连接
       min-idle: 0
+
+  rabbitmq:
+    host: 47.99.36.32
+    port: 5672
+    username: admin
+    password: saopigying2018
 
 #自定义的谁来发送邮件
 mail:
