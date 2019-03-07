@@ -33,13 +33,29 @@ public class GirlAspect {
 
     }
 
+    /**
+     * 在return之前，不管正常结束还是异常结束都会触发
+     */
     @After("log()")
     public void logAfter(){
         logger.info("after log");
     }
 
+    /**
+     * 在return之后触发
+     * @param object
+     */
     @AfterReturning(returning = "object",pointcut = "log()")
     public void logAfterReturning(Object object){
-        logger.info("response={}",object.toString());
+        logger.info("AfterReturning response={}",object.toString());
+    }
+
+    /**
+     * 在return抛出异常时触发
+     * @param e
+     */
+    @AfterThrowing(throwing = "e",pointcut = "log()")
+    public void logAfterReturning(Exception e){
+        logger.info("AfterThrowing Msg={}",e.getMessage());
     }
 }
