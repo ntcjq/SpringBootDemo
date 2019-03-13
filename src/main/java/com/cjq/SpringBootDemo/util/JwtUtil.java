@@ -45,14 +45,20 @@ public class JwtUtil
     //过期时间3s
     private static final long EXPIRE_TIME = 3000;
 
+    //这个是放在服务端的  盐
+    private static final String secret = "WEWNEFIOSN7W7EB";
+
     /**
      * 生成签名
      * @param username 用户名
-     * @param secret 用户的密码
+     * @param password 用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret)
+    public static String sign(String username, String password)
     {
+        //查库校验用户名密码
+        //TODO
+
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带username信息
@@ -62,10 +68,9 @@ public class JwtUtil
     /**
      * 校验token是否正确
      * @param token 密钥
-     * @param secret 用户的密码
      * @return 是否正确
      */
-    public static boolean verify(String token, String username, String secret)
+    public static boolean verify(String token, String username)
     {
         try
         {
@@ -111,5 +116,12 @@ public class JwtUtil
         Map<String,String> header = new HashMap();
         header.put("Authorization",sha1);
         //使用上边的信息去获取token，服务端解密 验证用户名密码，成功则返回token，客户端以后请求都带上token，过期返回401，重新再获取
+
+        String token = sign(username, password);
+
+        String u = getUsername(token);
+
+        System.out.println(verify(token,u));
+
     }
 }
