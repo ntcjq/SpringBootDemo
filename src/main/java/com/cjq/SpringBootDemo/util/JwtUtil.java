@@ -87,13 +87,17 @@ public class JwtUtil
 
     /**
      * 获得token中的信息无需secret解密也能获得
-     * @return token中包含的用户名
+     * @return token中包含的用户名，过期时间
      */
     public static String getUsername(String token)
     {
         try
         {
             DecodedJWT jwt = JWT.decode(token);
+            //获取签发时间
+            System.out.println(jwt.getIssuedAt());
+            //获取过期时间
+            System.out.println(jwt.getExpiresAt());
             return jwt.getClaim("username").asString();
         }
         catch (JWTDecodeException e)
