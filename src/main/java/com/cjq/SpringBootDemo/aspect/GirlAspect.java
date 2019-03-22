@@ -37,11 +37,11 @@ public class GirlAspect {
 
     @Around(value="log()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        //Around的前置
+        //Around的前置 （注意：@Around的前置在@Beofre之前执行）
         logger.info("Around 的前置增强");
         //调用目标方法
         Object proceed = joinPoint.proceed();
-        //Around的后置
+        //Around的后置 （注意：@Around的后置在@After之前执行）
         logger.info("Around 的后置增强");
         //如果目标方法有返回值，此处不返回，则返回值为null，所有用到返回值的地方都为null
         return proceed;
