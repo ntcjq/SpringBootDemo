@@ -3,6 +3,7 @@ package com.cjq.SpringBootDemo.aspect;
 
 import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,19 @@ public class GirlAspect {
 
     }
 
+
+    @Around(value="log()")
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+        //Around的前置
+        logger.info("Around 的前置增强");
+        //调用目标方法
+        Object proceed = joinPoint.proceed();
+        //Around的后置
+        logger.info("Around 的后置增强");
+        //如果目标方法有返回值，此处不返回，则返回值为null，所有用到返回值的地方都为null
+        return proceed;
+    }
+
     /**
      * 在return之前，不管正常结束还是异常结束都会触发
      */
@@ -47,7 +61,12 @@ public class GirlAspect {
      */
     @AfterReturning(returning = "object",pointcut = "log()")
     public void logAfterReturning(Object object){
-        logger.info("AfterReturning response={}",object.toString());
+        if(object == null){
+            logger.info("AfterReturning response=null");
+        }else{
+            logger.info("AfterReturning response={}",object.toString());
+        }
+
     }
 
     /**
@@ -58,4 +77,7 @@ public class GirlAspect {
     public void logAfterReturning(Exception e){
         logger.info("AfterThrowing Msg={}",e.getMessage());
     }
+
+
+
 }
