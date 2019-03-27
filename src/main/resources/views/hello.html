@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+    <script src='../static/nprogress.js'></script>
+    <link rel='stylesheet' href='../static/nprogress.css'/>
+</head>
+<body >
 Hello,《${title}》.描述：${description}
+<br/>
+进度条：<button onclick="start()">开始</button> <button onclick="inc()">增加</button> <button onclick="done()">结束</button>
 </body>
+<script>
+    NProgress.configure({ showSpinner: false });
+    function start(){
+        NProgress.start();
+    }
+
+    function inc(){
+        NProgress.inc(0.2);
+    }
+
+    function done(){
+        NProgress.done(true);
+    }
+
+
+
+
+
+</script>
 </html>
