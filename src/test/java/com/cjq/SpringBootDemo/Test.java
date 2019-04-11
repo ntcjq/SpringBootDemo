@@ -1,7 +1,6 @@
 package com.cjq.SpringBootDemo;
 
 import com.cjq.SpringBootDemo.daily.Parent;
-import com.cjq.SpringBootDemo.domain.Lom;
 import com.cjq.SpringBootDemo.domain.User;
 import javafx.scene.input.KeyCode;
 import org.springframework.jdbc.core.JdbcTemplate;
