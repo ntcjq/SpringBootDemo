@@ -1,17 +1,24 @@
 package com.cjq.SpringBootDemo.daily;
 
+import com.cjq.SpringBootDemo.daily.anno.ClassAnno;
+import com.cjq.SpringBootDemo.daily.anno.FieldAnno;
+import com.cjq.SpringBootDemo.daily.anno.MethodAnno;
+
 /**
  * @Author: cuijq
  */
+@ClassAnno
 public class Parent {
 
+
+    @FieldAnno
     public String ppub;
     String pdef;
     protected String ppro;
     private String ppri;
 
 
-
+    @MethodAnno
     public void pmethodPub(){
 
     }
