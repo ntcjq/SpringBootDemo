@@ -2,7 +2,9 @@
 #server.context-path=/boot
 server:
   port: 8888
-#自定义的内容
+#自定义的内容 这边不配置则会读取默认值
+#hello:
+#    msg: Hello World
 prj:
   description: 分享生活和技术
   title: springbootdemo
