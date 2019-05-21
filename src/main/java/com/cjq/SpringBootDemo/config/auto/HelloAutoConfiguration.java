@@ -23,7 +23,7 @@ public class HelloAutoConfiguration {
     @Bean
     //这个配置就是SpringBoot可以优先使用自定义Bean的核心所在，如果Spring容器中没有我们的自定义Bean才会像下面这样去创建一个新的Bean
     @ConditionalOnMissingBean(HelloService.class)
-    public HelloService auto(){
+    public HelloService helloService(){
         HelloService helloService =new HelloService();
         helloService.setMsg(helloProperties.getMsg());
         return helloService;
