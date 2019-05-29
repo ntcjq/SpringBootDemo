@@ -5,6 +5,8 @@ server:
 #自定义的内容 这边不配置则会读取默认值
 #hello:
 #    msg: Hello World
+conditional:
+  onProperty: close
 prj:
   description: 分享生活和技术
   title: springbootdemo
@@ -99,7 +101,6 @@ spring:
     port: 5672
     username: admin
     password: saopigying2018
-
 #自定义的谁来发送邮件
 mail:
   fromMail:
