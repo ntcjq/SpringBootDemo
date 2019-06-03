@@ -10,7 +10,6 @@ public class EnableBeanImportSelector implements ImportSelector {
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
         // 将 bean 注入到 spring 容器
-        return new String[] { EnableBeanVo.class.getName(), "com.cjq.SpringBootDemo.config.enable.EnableBeanDto",
-                EnableBeanConfiguration.class.getName() };
+        return new String[]{EnableBeanConfiguration.class.getName()};
     }
 }
