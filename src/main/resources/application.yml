@@ -96,11 +96,6 @@ spring:
       # 连接池中的最小空闲连接
       min-idle: 0
 
-  rabbitmq:
-    host: 47.99.36.32
-    port: 5672
-    username: admin
-    password: saopigying2018
 #自定义的谁来发送邮件
 mail:
   fromMail:
