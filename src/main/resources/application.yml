@@ -43,9 +43,9 @@ spring:
   ##默认数据库连接
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.99.36.32:3306/springboot?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/springboot?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: saopigying2018
+    password: root
     ########druid start###########################
     ########监控访问地址        http://localhost:8888/druid/login.html  ###
     type: com.alibaba.druid.pool.DruidDataSource
