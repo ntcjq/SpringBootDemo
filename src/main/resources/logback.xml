@@ -55,7 +55,7 @@
         注意:日志的内容需要是JSON格式的，不然无法存入mongodb
     -->
     <appender name="MONGODB" class="com.cjq.SpringBootDemo.log.MongoDBAppender">
-        <DbHost>47.99.36.32</DbHost>
+        <DbHost>127.0.0.1</DbHost>
         <DbPort>27017</DbPort>
         <DbName>log</DbName>
         <DbCollectionName>SpringBoot</DbCollectionName>
