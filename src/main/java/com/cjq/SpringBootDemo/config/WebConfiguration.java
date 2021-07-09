@@ -1,32 +1,26 @@
 package com.cjq.SpringBootDemo.config;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
 import com.cjq.SpringBootDemo.interceptor.SecurityHandleInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 
 @Configuration
-public class WebConfiguration extends WebMvcConfigurerAdapter {
-
+public class WebConfiguration extends WebMvcConfigurationSupport {
 
     @Bean
     public SecurityHandleInterceptor SecurityHandleInterceptor() {
         return new SecurityHandleInterceptor();
     }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration addInterceptor = registry.addInterceptor(SecurityHandleInterceptor());
@@ -42,7 +36,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
 
-    	//将自定义Filter加入过滤链
+        //将自定义Filter加入过滤链
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new MyFilter());
         registration.addUrlPatterns("/*");
@@ -51,31 +45,33 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         registration.setOrder(1);
         return registration;
     }
-    
-    public class MyFilter implements Filter {
-		@Override
-		public void destroy() {
-			// TODO Auto-generated method stub
-		}
 
-		@Override
-		public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
-				throws IOException, ServletException {
-			HttpServletRequest request = (HttpServletRequest) srequest;
-            if(request.getRequestURI().indexOf("/druid") != -1){
+    public class MyFilter implements Filter {
+        @Override
+        public void destroy() {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
+                throws IOException, ServletException {
+            HttpServletRequest request = (HttpServletRequest) srequest;
+            if (request.getRequestURI().indexOf("/druid") != -1) {
                 filterChain.doFilter(srequest, sresponse);
                 return;
             }
-            System.out.println("this is MyFilter,url :"+request.getRequestURI());
-			filterChain.doFilter(srequest, sresponse);
-		}
+            System.out.println("this is MyFilter,url :" + request.getRequestURI());
+            System.out.println("--------before filter");
+            filterChain.doFilter(srequest, sresponse);
+            System.out.println("--------after filter");
+        }
 
-		@Override
-		public void init(FilterConfig arg0) throws ServletException {
-			String paramValue = arg0.getInitParameter("paramName");
-			System.out.println("--------------------init filter "+paramValue);
-			// TODO Auto-generated method stub
-		}
+        @Override
+        public void init(FilterConfig arg0) throws ServletException {
+            String paramValue = arg0.getInitParameter("paramName");
+            System.out.println("--------------------init filter " + paramValue);
+            // TODO Auto-generated method stub
+        }
 
     }
 }
