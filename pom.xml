@@ -100,7 +100,7 @@
 		<dependency>
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>fastjson</artifactId>
-		    <version>1.2.41</version>
+		    <version>1.2.83</version>
 		</dependency>
 		<!-- Druid数据库连接池组件 -->
         <dependency>
@@ -153,7 +153,7 @@
 		<dependency>
 		    <groupId>commons-io</groupId>
 		    <artifactId>commons-io</artifactId>
-		    <version>2.4</version>
+		    <version>2.7</version>
 		</dependency>
 		<!-- 热部署 -->
 		<dependency>
